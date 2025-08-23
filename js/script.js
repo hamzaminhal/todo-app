@@ -161,6 +161,8 @@ function showTasks() {
               <button class="icon-btn edit" title="Click the text to edit" data-id="${doc.id}">
                 <!-- pencil icon -->
                 <svg
+                  data-id="${doc.id}"
+                  class="edit"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -178,7 +180,8 @@ function showTasks() {
               <button class="icon-btn delete dlt" for="del-1" title="Delete task" data-id="${doc.id}">
                 <!-- trash icon -->
                 <svg                  
-                  
+                  data-id="${doc.id}"
+                  class="dlt"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -206,9 +209,9 @@ function showTasks() {
 
 listContainer.addEventListener("click", async (event) => {
   showLoader();
-  if (event.target.classList.contains("dlt")) {
+  const dltBtn = event.target.closest(".dlt");
+  if (dltBtn) {
     const taskId = event.target.dataset.id;
-    console.log("Deleting:", taskId);
     await deleteDoc(doc(db, userid, taskId));
     hideLoader();
   }
@@ -222,8 +225,9 @@ async function editTask(newTask, taskId) {
   hideLoader();
 }
 listContainer.addEventListener("click", (event) => {
+  const edditBtn = event.target.closest(".edit");
   showLoader();
-  if (event.target.classList.contains("edit")) {
+  if (edditBtn) {
     let newTask = prompt("Enter new task here");
     const taskId = event.target.dataset.id;
     console.log(taskId);
