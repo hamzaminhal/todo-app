@@ -11,6 +11,7 @@ import {
   onSnapshot,
   query,
   deleteDoc,
+  setDoc,
 } from "./methods.js";
 import {
   closeModal,
@@ -133,6 +134,7 @@ addTaskBtn.addEventListener("click", () => {
 
 // SHOW TASK FUNCTION
 function showTasks() {
+  showLoader();
   const q = query(collection(db, userid));
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     listContainer.innerHTML = "";
@@ -156,7 +158,7 @@ function showTasks() {
               ${task}
       </div>
             <div class="actions">
-              <button class="icon-btn edit" title="Click the text to edit">
+              <button class="icon-btn edit" title="Click the text to edit" data-id="${doc.id}">
                 <!-- pencil icon -->
                 <svg
                   viewBox="0 0 24 24"
@@ -173,10 +175,10 @@ function showTasks() {
                   ></path>
                 </svg>
               </button>
-              <button class="icon-btn delete dlt" for="del-1" title="Delete task">
+              <button class="icon-btn delete dlt" for="del-1" title="Delete task" data-id="${doc.id}">
                 <!-- trash icon -->
                 <svg                  
-                  data-id="${doc.id}"
+                  
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -196,28 +198,41 @@ function showTasks() {
           </div>
   `;
     });
+    hideLoader();
   });
 }
 
 // DELETE TASK
 
-listContainer.addEventListener("click", async (e) => {
+listContainer.addEventListener("click", async (event) => {
   showLoader();
-  if (e.target.classList.contains("dlt")) {
-    const taskId = e.target.dataset.id;
+  if (event.target.classList.contains("dlt")) {
+    const taskId = event.target.dataset.id;
     console.log("Deleting:", taskId);
     await deleteDoc(doc(db, userid, taskId));
     hideLoader();
   } else {
-    alert("failed to delete");
+    console.log("failed to delete");
     hideLoader();
   }
 });
 
-// document.querySelector(".dlt")?.addEventListener("click", (e) => {
-//   console.log("dlt working");
-//   console.log(e.target.dataset.id);
-// });
+// EDIT TASK
+async function editTask(newTask, taskId) {
+  const docRef = await setDoc(doc(db, userid, taskId), {
+    task: newTask,
+  });
+  hideLoader();
+}
+listContainer.addEventListener("click", (event) => {
+  showLoader();
+  if (event.target.classList.contains("edit")) {
+    let newTask = prompt("Enter new task here");
+    const taskId = event.target.dataset.id;
+    console.log(taskId);
+    editTask(newTask, taskId);
+  }
+});
 
 checkUser().then(() => {
   showTasks();
