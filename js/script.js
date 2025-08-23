@@ -211,9 +211,6 @@ listContainer.addEventListener("click", async (event) => {
     console.log("Deleting:", taskId);
     await deleteDoc(doc(db, userid, taskId));
     hideLoader();
-  } else {
-    console.log("failed to delete");
-    hideLoader();
   }
 });
 
