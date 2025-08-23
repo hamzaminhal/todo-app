@@ -47,6 +47,7 @@ function checkUser() {
         // ...
         showModal();
         resolve(false);
+        addTaskBtn.disabled = true;
       }
     });
   });
@@ -84,6 +85,8 @@ loginBtn.addEventListener("click", () => {
       hideLoader();
       alert("Logged In Successfully");
       closeModal();
+      showTasks();
+      addTaskBtn.disabled = false;
 
       // ...
     })
@@ -91,6 +94,7 @@ loginBtn.addEventListener("click", () => {
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorCode, "=>", errorMessage);
+      showModal();
     });
 });
 
@@ -98,17 +102,19 @@ loginBtn.addEventListener("click", () => {
 function logUserOut() {
   signOut(auth)
     .then(() => {
+      listContainer.innerHTML = "";
       // Sign-out successful.
       alert("Logged Out Successfully");
-      hideLoader();
+    })
+    .then(() => {
+      window.reload();
     })
     .catch((error) => {
-      // An error happened.
-      alert("Error Occured");
+      // An error happened
+      // alert("Error Occured");
     });
 }
 document.getElementById("btn").addEventListener("click", () => {
-  showLoader();
   logUserOut();
 });
 

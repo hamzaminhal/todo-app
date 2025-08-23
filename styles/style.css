@@ -87,17 +87,19 @@ header {
 .title {
   display: flex;
   align-items: center;
+  justify-content: center;  
+  margin: auto;
   gap: 12px;
 }
 .logo {
-  width: 38px;
+  width: 130px;
   height: 38px;
   border-radius: 12px;
   display: grid;
   place-items: center;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: white;
-  font-weight: 700;
+  font-weight: 900;
   letter-spacing: 0.5px;
   box-shadow: 0 8px 18px rgba(124, 58, 237, 0.25);
 }
@@ -417,7 +419,7 @@ footer {
   width: 50px;
   height: 50px;
   border: 5px solid #f3f3f3;
-  border-top: 5px solid #8dc63f; /* OLX green color */
+  border-top: 5px solid #0b1220; /* OLX green color */
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 15px;
