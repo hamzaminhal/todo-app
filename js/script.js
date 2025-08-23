@@ -69,7 +69,7 @@ signupBtn.addEventListener("click", () => {
       // Signed up
       const user = userCredential.user;
       console.log(user);
-      alert("Signedup Successfully");
+      swal("Success!", "Signedup Successfully", "success");
       window.reload();
       // ...
     })
@@ -90,7 +90,7 @@ loginBtn.addEventListener("click", () => {
       // Signed in
       const user = userCredential.user;
       hideLoader();
-      alert("Logged In Successfully");
+      swal("Success", "Logged In Successfully", "success");
       closeModal();
       showTasks();
       addTaskBtn.disabled = false;
@@ -100,7 +100,7 @@ loginBtn.addEventListener("click", () => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(errorCode, "=>", errorMessage);
+      swal("Alert", `${errorCode} => ${errorMessage}`, "error");
       showModal();
     });
 });
@@ -112,7 +112,7 @@ function logUserOut() {
     .then(() => {
       listContainer.innerHTML = "";
       // Sign-out successful.
-      alert("Logged Out Successfully");
+      swal("Success", "Logged Out Successfully", "success");
     })
     .then(() => {
       window.reload();
