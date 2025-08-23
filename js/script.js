@@ -10,6 +10,7 @@ import {
   doc,
   onSnapshot,
   query,
+  deleteDoc,
 } from "./methods.js";
 import {
   closeModal,
@@ -130,11 +131,6 @@ addTaskBtn.addEventListener("click", () => {
   addtask();
 });
 
-// DELETE TASK
-async function dltTask(params) {
-  await deleteDoc(doc(db, "cities", "DC"));
-}
-
 // SHOW TASK FUNCTION
 function showTasks() {
   const q = query(collection(db, userid));
@@ -143,6 +139,7 @@ function showTasks() {
 
     querySnapshot.forEach((doc) => {
       let { task } = doc.data();
+      console.log(doc.id);
       listContainer.innerHTML += `
           <div class="todo" role="listitem">
             <input
@@ -176,9 +173,10 @@ function showTasks() {
                   ></path>
                 </svg>
               </button>
-              <label class="icon-btn delete" for="del-1" title="Delete task">
+              <button class="icon-btn delete dlt" for="del-1" title="Delete task">
                 <!-- trash icon -->
-                <svg
+                <svg                  
+                  data-id="${doc.id}"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -193,13 +191,33 @@ function showTasks() {
                   <path d="M14 11v6" />
                   <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
                 </svg>
-              </label>
+              </button>
             </div>
           </div>
   `;
     });
   });
 }
+
+// DELETE TASK
+
+listContainer.addEventListener("click", async (e) => {
+  showLoader();
+  if (e.target.classList.contains("dlt")) {
+    const taskId = e.target.dataset.id;
+    console.log("Deleting:", taskId);
+    await deleteDoc(doc(db, userid, taskId));
+    hideLoader();
+  } else {
+    alert("failed to delete");
+    hideLoader();
+  }
+});
+
+// document.querySelector(".dlt")?.addEventListener("click", (e) => {
+//   console.log("dlt working");
+//   console.log(e.target.dataset.id);
+// });
 
 checkUser().then(() => {
   showTasks();
