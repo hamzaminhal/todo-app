@@ -231,6 +231,8 @@ listContainer.addEventListener("click", (event) => {
   }
 });
 
-checkUser().then(() => {
-  showTasks();
+checkUser().then((loggedIn) => {
+  if (loggedIn) {
+    showTasks();
+  }
 });
