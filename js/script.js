@@ -28,6 +28,8 @@ const signupBtn = document.querySelector("#signupBtn");
 const loginBtn = document.querySelector("#loginBtn");
 const addTaskBtn = document.querySelector("#addTask");
 let taskInput = document.querySelector("#task-input");
+let btn = document.querySelector("#btn");
+let btn1 = document.querySelector("#btn1");
 let userid = null;
 
 // CHECK USER STATE
@@ -40,12 +42,17 @@ function checkUser() {
         userid = user.uid;
         hideLoader();
         console.log("Logged in user:", userid);
+        btn1.classList.add("hide");
+        btn.classList.remove("hide");
+
         resolve(true);
         // ...
       } else {
         // User is signed out
         // ...
         showModal();
+        btn.classList.add("hide");
+        btn1.classList.remove("hide");
         resolve(false);
         addTaskBtn.disabled = true;
       }
@@ -97,6 +104,7 @@ loginBtn.addEventListener("click", () => {
       showModal();
     });
 });
+btn1.addEventListener("click", showModal);
 
 // LOGOUT LOGIC
 function logUserOut() {
@@ -214,9 +222,9 @@ function showTasks() {
 // DELETE TASK
 
 listContainer.addEventListener("click", async (event) => {
-  showLoader();
   const dltBtn = event.target.closest(".dlt");
   if (dltBtn) {
+    showLoader();
     const taskId = event.target.dataset.id;
     await deleteDoc(doc(db, userid, taskId));
     hideLoader();
@@ -232,8 +240,8 @@ async function editTask(newTask, taskId) {
 }
 listContainer.addEventListener("click", (event) => {
   const edditBtn = event.target.closest(".edit");
-  showLoader();
   if (edditBtn) {
+    showLoader();
     let newTask = prompt("Enter new task here");
     const taskId = event.target.dataset.id;
     console.log(taskId);

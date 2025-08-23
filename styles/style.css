@@ -103,6 +103,9 @@ header {
   letter-spacing: 0.5px;
   box-shadow: 0 8px 18px rgba(124, 58, 237, 0.25);
 }
+.hide{
+  display: none;
+}
 h1 {
   margin: 0;
   font-size: clamp(20px, 2.6vw, 28px);
@@ -154,6 +157,7 @@ h1 {
   border-radius: 14px;
   padding: 10px 12px 10px 8px;
   transition: transform 0.12s ease, border-color 0.2s ease, background 0.2s ease;
+  overflow: hidden;
 }
 .todo:hover {
   transform: translateY(-1px);
@@ -172,7 +176,7 @@ h1 {
   display: grid;
   place-items: center;
   cursor: pointer;
-  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border: 1.5px solid #0f172a;
   background: transparent;
   margin: 0 0 0 8px;
 }
@@ -189,9 +193,11 @@ h1 {
 
 .text {
   min-height: 22px;
+  max-width:  500px;
   padding: 10px 12px;
   border-radius: 10px;
   outline: none;
+  overflow-wrap: anywhere;
   transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 .text-input {
@@ -450,6 +456,7 @@ footer {
   }
   .text {
     padding: 8px 10px;
+    overflow-wrap:anywhere ;
   }
   .new {
     display: grid;
