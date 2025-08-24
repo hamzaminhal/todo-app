@@ -171,7 +171,7 @@ function showTasks() {
               ${task}
       </div>
             <div class="actions">
-              <button class="icon-btn" title="Click the text to edit">
+              <button class="icon-btn" title="Click the text to edit" data-id="${doc.id}">
                 <!-- pencil icon -->
                 <svg
                   data-id="${doc.id}"
@@ -184,13 +184,13 @@ function showTasks() {
                   stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <path d="M12 20h9" />
+                  <path d="M12 20h9"  data-id="${doc.id}"/>
                   <path
-                    d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"
+                    d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" data-id="${doc.id}"
                   >
                 </svg>
               </button>
-              <button class="icon-btn" for="del-1" title="Delete task">
+              <button class="icon-btn" for="del-1" title="Delete task" data-id="${doc.id}">
                 <!-- trash icon -->
                 <svg                  
                   data-id="${doc.id}"
@@ -203,11 +203,11 @@ function showTasks() {
                   stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <polyline points="3 6 5 6 21 6" />
-                  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                  <path d="M10 11v6" />
-                  <path d="M14 11v6" />
-                  <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+                  <polyline points="3 6 5 6 21 6" data-id="${doc.id}"/>
+                  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" data-id="${doc.id}"/>
+                  <path d="M10 11v6" data-id="${doc.id}"/>
+                  <path d="M14 11v6" data-id="${doc.id}"/>
+                  <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" data-id="${doc.id}"/>
                 </svg>
               </button>
             </div>
