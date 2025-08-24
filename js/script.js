@@ -68,14 +68,14 @@ signupBtn.addEventListener("click", () => {
       // Signed up
       const user = userCredential.user;
       console.log(user);
-      swal("Success!", "Signedup Successfully", "success");
+      Swal.fire("Success!", "Signedup Successfully", "success");
       window.location.reload();
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      swal("Error", `${errorCode} => ${errorMessage}`, "error");
+      Swal.fire("Error", `${errorCode} => ${errorMessage}`, "error");
     });
 });
 
@@ -89,7 +89,7 @@ loginBtn.addEventListener("click", () => {
       // Signed in
       const user = userCredential.user;
       hideLoader();
-      swal("Success", "Logged In Successfully", "success");
+      Swal.fire("Success", "Logged In Successfully", "success");
       closeModal();
       showTasks();
       addTaskBtn.disabled = false;
@@ -99,7 +99,7 @@ loginBtn.addEventListener("click", () => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      swal("Alert", `${errorCode} => ${errorMessage}`, "error");
+      Swal.fire("Alert", `${errorCode} => ${errorMessage}`, "error");
       showModal();
     });
 });
@@ -111,14 +111,14 @@ function logUserOut() {
     .then(() => {
       listContainer.innerHTML = "";
       // Sign-out successful.
-      swal("Success", "Logged Out Successfully", "success");
+      Swal.fire("Success", "Logged Out Successfully", "success");
     })
     .then(() => {
       window.location.reload();
     })
     .catch((error) => {
       // An error happened
-      swal("Error", "Logout failed", "error");
+      Swal.fire("Error", "Logout failed", "error");
     });
 }
 document.getElementById("btn").addEventListener("click", () => {
