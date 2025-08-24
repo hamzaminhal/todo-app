@@ -68,14 +68,14 @@ signupBtn.addEventListener("click", () => {
       // Signed up
       const user = userCredential.user;
       console.log(user);
-      Swal.fire("Success!", "Signedup Successfully", "success");
+      Swal("Success!", "Signedup Successfully", "success");
       window.location.reload();
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      Swal.fire("Error", `${errorCode} => ${errorMessage}`, "error");
+      Swal("Error", `${errorCode} => ${errorMessage}`, "error");
     });
 });
 
@@ -89,7 +89,7 @@ loginBtn.addEventListener("click", () => {
       // Signed in
       const user = userCredential.user;
       hideLoader();
-      Swal.fire("Success", "Logged In Successfully", "success");
+      Swal("Success", "Logged In Successfully", "success");
       closeModal();
       showTasks();
       addTaskBtn.disabled = false;
@@ -99,7 +99,7 @@ loginBtn.addEventListener("click", () => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      Swal.fire("Alert", `${errorCode} => ${errorMessage}`, "error");
+      Swal("Alert", `${errorCode} => ${errorMessage}`, "error");
       showModal();
     });
 });
@@ -111,14 +111,14 @@ function logUserOut() {
     .then(() => {
       listContainer.innerHTML = "";
       // Sign-out successful.
-      Swal.fire("Success", "Logged Out Successfully", "success");
+      Swal("Success", "Logged Out Successfully", "success");
     })
     .then(() => {
       window.location.reload();
     })
     .catch((error) => {
       // An error happened
-      Swal.fire("Error", "Logout failed", "error");
+      Swal("Error", "Logout failed", "error");
     });
 }
 document.getElementById("btn").addEventListener("click", () => {
@@ -128,7 +128,7 @@ document.getElementById("btn").addEventListener("click", () => {
 //ADD TASK FUNCTION
 async function addtask() {
   if (!taskInput.value.trim()) {
-    swal("Error", "Please enter a task", "error");
+    Swal("Error", "Please enter a task", "error");
     hideLoader();
     return;
   }
