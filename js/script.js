@@ -69,13 +69,13 @@ signupBtn.addEventListener("click", () => {
       const user = userCredential.user;
       console.log(user);
       swal("Success!", "Signedup Successfully", "success");
-      window.reload();
+      window.location.reload();
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
+      swal("Error", `${errorCode} => ${errorMessage}`, "error");
     });
 });
 
@@ -114,11 +114,11 @@ function logUserOut() {
       swal("Success", "Logged Out Successfully", "success");
     })
     .then(() => {
-      window.reload();
+      window.location.reload();
     })
     .catch((error) => {
       // An error happened
-      // alert("Error Occured");
+      swal("Error", "Logout failed", "error");
     });
 }
 document.getElementById("btn").addEventListener("click", () => {
@@ -127,15 +127,23 @@ document.getElementById("btn").addEventListener("click", () => {
 
 //ADD TASK FUNCTION
 async function addtask() {
+  if (!taskInput.value.trim()) {
+    swal("Error", "Please enter a task", "error");
+    hideLoader();
+    return;
+  }
+  
   try {
     const docRef = await addDoc(collection(db, userid), {
-      task: taskInput.value,
+      task: taskInput.value.trim(),
     });
     console.log("Document written with ID: ", docRef.id);
     hideLoader();
     taskInput.value = "";
   } catch (e) {
     console.error("Error adding document: ", e);
+    swal("Error", "Failed to add task", "error");
+    hideLoader();
   }
 }
 
@@ -242,9 +250,14 @@ listContainer.addEventListener("click", (event) => {
   if (edditBtn) {
     showLoader();
     let newTask = prompt("Enter new task here");
-    const taskId = event.target.dataset.id;
-    console.log(taskId);
-    editTask(newTask, taskId);
+    if (newTask && newTask.trim()) {
+      const taskId = event.target.dataset.id;
+      console.log(taskId);
+      editTask(newTask.trim(), taskId);
+    } else {
+      hideLoader();
+      swal("Error", "Please enter a valid task", "error");
+    }
   }
 });
 
