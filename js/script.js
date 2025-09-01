@@ -111,10 +111,9 @@ function logUserOut() {
     .then(() => {
       listContainer.innerHTML = "";
       // Sign-out successful.
-      Swal.fire("Success", "Logged Out Successfully", "success");
-    })
-    .then(() => {
-      window.location.reload();
+      Swal.fire("Success", "Logged Out Successfully", "success").then(() => {
+        window.location.reload();
+      });
     })
     .catch((error) => {
       // An error happened
