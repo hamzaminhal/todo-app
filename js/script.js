@@ -68,14 +68,14 @@ signupBtn.addEventListener("click", () => {
       // Signed up
       const user = userCredential.user;
       console.log(user);
-      Swal("Success!", "Signedup Successfully", "success");
+      Swal.fire("Success!", "Signedup Successfully", "success");
       window.location.reload();
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      Swal("Error", `${errorCode} => ${errorMessage}`, "error");
+      Swal.fire("Error", `${errorCode} => ${errorMessage}`, "error");
     });
 });
 
@@ -89,7 +89,7 @@ loginBtn.addEventListener("click", () => {
       // Signed in
       const user = userCredential.user;
       hideLoader();
-      Swal("Success", "Logged In Successfully", "success");
+      swal.fire("Success", "Logged In Successfully", "success");
       closeModal();
       showTasks();
       addTaskBtn.disabled = false;
@@ -99,7 +99,7 @@ loginBtn.addEventListener("click", () => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      Swal("Alert", `${errorCode} => ${errorMessage}`, "error");
+      Swal.fire("Alert", `${errorCode} => ${errorMessage}`, "error");
       showModal();
     });
 });
@@ -111,14 +111,14 @@ function logUserOut() {
     .then(() => {
       listContainer.innerHTML = "";
       // Sign-out successful.
-      Swal("Success", "Logged Out Successfully", "success");
+      Swal.fire("Success", "Logged Out Successfully", "success");
     })
     .then(() => {
       window.location.reload();
     })
     .catch((error) => {
       // An error happened
-      Swal("Error", "Logout failed", "error");
+      Swal.fire("Error", "Logout failed", "error");
     });
 }
 document.getElementById("btn").addEventListener("click", () => {
@@ -128,11 +128,11 @@ document.getElementById("btn").addEventListener("click", () => {
 //ADD TASK FUNCTION
 async function addtask() {
   if (!taskInput.value.trim()) {
-    Swal("Error", "Please enter a task", "error");
+    Swal.fire("Error", "Please enter a task", "error");
     hideLoader();
     return;
   }
-  
+
   try {
     const docRef = await addDoc(collection(db, userid), {
       task: taskInput.value.trim(),
@@ -142,7 +142,7 @@ async function addtask() {
     taskInput.value = "";
   } catch (e) {
     console.error("Error adding document: ", e);
-    swal("Error", "Failed to add task", "error");
+    Swal.fire("Error", "Failed to add task", "error");
     hideLoader();
   }
 }
@@ -256,7 +256,7 @@ listContainer.addEventListener("click", (event) => {
       editTask(newTask.trim(), taskId);
     } else {
       hideLoader();
-      swal("Error", "Please enter a valid task", "error");
+      Swal.fire("Error", "Please enter a valid task", "error");
     }
   }
 });
